@@ -35,12 +35,12 @@ show.solution = T
 
 Before we start, we need to load some libraries:
 
-* `randomForest` is a package that supplies the random forest algorithm for classification and regression. We use it to train a model for our data. 
+* `ranger` is a package that supplies the random forest algorithm for classification and regression. We use it to train a model for our data. 
 * `iml` is a package that implements several model-agnostic interpretation methods that explain the the model behavior and its predictions.
 * `ggplot`, `grid.Extra`, and `DataExplorer` will be used for plotting and a quick exploratory data analysis.
 
 ```{r library}
-library('randomForest')
+library('ranger')
 library('iml')
 library('ggplot2')
 library('gridExtra')
@@ -93,17 +93,16 @@ set.seed(1)
 test_ind = sample(1:nrow(wine_complete), size = 1000, replace = FALSE)
 train_ind = setdiff(1:nrow(wine_complete), test_ind)
 wine_train = wine_complete[train_ind,]
+wine = wine_complete[test_ind,]
 
-# fit the random forest to be analyzed (this will take some time) --> stored as RData file in data folder with train and test indices
-
-#rfmod = randomForest(quality ~ ., data = wine_train)
-#save(rfmod, train_ind, test_ind,  file = "wine_example/data/model.RData")
+# fit the random forest to be analyzed 
+rfmod = ranger(quality ~ ., data = wine_train)
 ```
 
 # Exercises
 
 You can copy and paste the previously shown code to import the data and model.
-Note that for all following exercises, you are asked to use the `wine` data that contains 1000 observations.
+Note that for all following exercises, you are asked to use the test data `wine` that contains 1000 observations.
 
 
 ### Exercise 0: The Predictor 
@@ -122,8 +121,6 @@ A Predictor object holds a machine learning model (mlr3, caret, randomForest, ..
 The interpretation methods in the `iml` package require that the machine learning model and the data are wrapped in a Predictor object.
 
 ```{r predictor}
-load("../data/model.RData")
-wine = wine_complete[test_ind,]
 rfpred = Predictor$new(rfmod, data = wine, y = "quality")
 rfpred
 ```
