@@ -134,7 +134,7 @@ rfpred
 cat("-->")
 ```
 
-### Exercise 1: Partial Dependence Plot (PDP)
+### Exercise 1: PD and ALE plots
 
 
 We are interested in how the features influence the predicted wine quality. 
@@ -427,7 +427,7 @@ cat("-->")
 
 
 
-### Exercise 8: Shapely Values
+### Exercise 8: Shapely Values - local analysis
 
 Shapley values are a local IML method, meaning that they provide explanations for one specific observation. 
 They explain how much each feature attributed to the prediction of the regarded observation.
@@ -449,12 +449,30 @@ idx = which(wine$quality >= 8 & wine$alcohol < 10)[1]
 shapley_values = Shapley$new(rfpred, x.interest = wine[idx,])
 plot(shapley_values)
 ```
+
 The plot shows how much the actual prediction of the wine deviates from the average wine quality and how this deviation is attributed to the different features. In this specific example, we can see that the low acidity and pH value contribute most to the good rating of the wine. 
 
 
+</details>
+```{r, eval = !show.solution, echo = FALSE, results='asis'}
+cat("-->")
+```
 
+
+
+### Exercise 9: Shapely Values - global analysis
 
 Calculate Shapley values for a random sample of size = 100 for global analysis:
+
+`r colorize("hint", "blue")`: Use `Shapley$new`
+
+```{r, eval = !show.solution, echo = FALSE, results='asis'}
+cat("<!--")
+```
+
+
+<details>
+  <summary>**Solution**</summary>
 ```{r shapley_global, eval=FALSE}
 set.seed(1)
 idx = sample(1:nrow(wine), size = 100, replace = FALSE)
@@ -481,7 +499,7 @@ ggplot(data = shapley_values_all[which(shapley_values_all$feature == "alcohol"),
 cat("-->")
 ```
 
-### Exercise 9: Further hypotheses
+### Exercise 10: Further hypotheses
 
 Think about further interesting hypotheses that you can answer by applying the introduced IML methods.
 
