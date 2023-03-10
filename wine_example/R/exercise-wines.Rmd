@@ -396,7 +396,7 @@ head(wine_experiment)
 
 # predict with the rfmod model to see how the predictions for the regarded wine changes when we only vary the alcohol and acidity features while keeping all other features constant.
 rfmod_pred = predict(rfmod, wine_experiment)
-wine_experiment$rfmod_prediction = rfmod_pred
+wine_experiment$rfmod_prediction = rfmod_pred$predictions
 rmarkdown::paged_table(wine_experiment[wine_experiment$rfmod_prediction > 6, ])
 ```
 
