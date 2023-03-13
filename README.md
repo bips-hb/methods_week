@@ -1,6 +1,7 @@
 # Methods Week in Statistics: Interpretable Machine Learning
 
-This repository provides the materials for the methods week in Statistics on the topic ``Interpretable Machine Learning''.\\
+This repository provides the materials for the methods week in Statistics on the topic "Interpretable Machine Learning".
+
 The repository is structured as follows:
 * slides: slides for the theoretical part of the methods week 
 * exercise: exercise sheet for the practical part of the methods week & HTML file with questions transfered to the wine dataset (including solutions)
